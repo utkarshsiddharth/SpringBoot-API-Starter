@@ -13,10 +13,12 @@ import java.util.Optional;
 public class Main {
     private CustomerRepository customerRepository;
     private TodoRepository todoRepository;
+    private BookRepository bookRepository;
 
-    public Main(CustomerRepository customerRepository, TodoRepository todoRepository) {
+    public Main(CustomerRepository customerRepository, TodoRepository todoRepository, BookRepository bookRepository) {
         this.customerRepository = customerRepository;
         this.todoRepository = todoRepository;
+        this.bookRepository = bookRepository;
     }
 
     public static void main(String[] args) {
@@ -92,7 +94,46 @@ public class Main {
         }
     }
 
+    @GetMapping("/api/v1/books")
+    public List<Book> getBooks(){
+        return bookRepository.findAll();
+    }
+
+    @PostMapping("/api/v1/books")
+    public Book createBook(@RequestBody CreateBook bookBody){
+        Book book = new Book();
+        book.setDescription(bookBody.description());
+        book.setTitle(bookBody.title());
+        return bookRepository.save(book);
+    }
+
+    @DeleteMapping("/api/v1/books/{bookId}")
+    public void removeBook(@PathVariable("bookId") int bookId) {
+        bookRepository.deleteById(bookId);
+    }
+
+    @PutMapping("/api/v1/books/{bookId}")
+    public Book updateBook(@PathVariable("bookId") int bookId, @RequestBody UpdateBook bookBody) {
+        Optional<Book> hasBook = bookRepository.findById(bookId);
+        if(hasBook.isPresent()) {
+           Book book = hasBook.get();
+           System.out.println(bookBody.toString());
+
+           if(bookBody.title() != null) {
+               book.setTitle(bookBody.title());
+           }
+           if(bookBody.description() != null) {
+               book.setDescription(bookBody.description());
+           }
+           return bookRepository.save(book);
+        }
+        throw new RuntimeException("Book not found with provided ID");
+    }
+
     record HealthCheck(String STATUS_RESPONSE, String STATUS_MESSAGE){}
     record NewCustomer(String name, String email, int age) {}
     record UpdateCustomer(String name, String email, int age) {}
+
+    record CreateBook(String title, String description){}
+    record UpdateBook(String title, String description){}
 }
