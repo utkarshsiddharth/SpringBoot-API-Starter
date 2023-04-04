@@ -3,9 +3,10 @@ server:
 
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5332/customer?user=admin&password=admin
-    user: admin
+    url: jdbc:postgresql://localhost:5332/customer
+    username: admin
     password: admin
+    driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:
       ddl-auto: create-drop
