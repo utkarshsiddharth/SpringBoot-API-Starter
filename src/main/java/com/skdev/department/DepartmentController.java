@@ -1,5 +1,7 @@
 package com.skdev.department;
 
+import com.skdev.error.DepartmentNotFoundException;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,13 +21,18 @@ public class DepartmentController  {
     }
 
     @PostMapping
-    public Department createDepartment(@RequestBody Department body){
+    public Department createDepartment(@Valid @RequestBody Department body){
         return departmentService.createDepartment(body);
     }
 
     @GetMapping("/{id}")
-    public Optional<Department> getDepartmentById(@PathVariable("id") int id){
+    public Optional<Department> getDepartmentById(@PathVariable("id") int id) throws DepartmentNotFoundException {
         return departmentService.getDepartmentById(id);
+    }
+
+    @GetMapping("/name/{name}")
+    public Optional<Department> getDepartmentByName(@PathVariable("name") String name) throws DepartmentNotFoundException{
+        return departmentService.getDepartmentByName(name);
     }
 
     @PutMapping("/{id}")

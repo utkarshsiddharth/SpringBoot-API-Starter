@@ -1,5 +1,6 @@
 package com.skdev.department;
 
+import com.skdev.error.DepartmentNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,13 +28,22 @@ public class DepartmentService implements DepartmentServiceInter {
     }
 
     @Override
-    public Optional<Department> getDepartmentById(int id) throws RuntimeException {
+    public Optional<Department> getDepartmentById(int id) throws DepartmentNotFoundException {
         Optional<Department> department =  departmentRepository.findById(id);
         if(department.isPresent()) {
             return department;
         }else {
-            throw new RuntimeException("Department not found by give id!");
+            throw new DepartmentNotFoundException("Department not found by given id!");
         }
+    }
+
+    @Override
+    public Optional<Department> getDepartmentByName(String name) throws DepartmentNotFoundException{
+        Optional<Department> department =  departmentRepository.findByName(name);
+        if(!department.isPresent()) {
+            throw new DepartmentNotFoundException("Department not found by given department name");
+        }
+        return department;
     }
 
     public Optional<Department> updateDepartment(int id, Department body) {
