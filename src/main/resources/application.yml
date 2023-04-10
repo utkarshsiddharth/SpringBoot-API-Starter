@@ -1,6 +1,7 @@
 server:
   port: 8080
 
+
 spring:
   datasource:
     url: jdbc:postgresql://localhost:5332/customer
@@ -15,3 +16,9 @@ spring:
         dialect: org.hibernate.dialect.PostgreSQLDialect
         format_sql: true
     show_sql: true
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+        exclude: "env,beans"

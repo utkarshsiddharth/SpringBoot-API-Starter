@@ -6,20 +6,24 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-@SpringBootApplication
+@SpringBootTest
 class DepartmentServiceInterTest {
 
+
     @Autowired
-    private DepartmentService departmentService;
+    private  DepartmentService departmentService;
 
     @MockBean
     private DepartmentRepository departmentRepository;
+
+
 
     @BeforeEach
     void setUp() {
@@ -40,4 +44,5 @@ class DepartmentServiceInterTest {
         Optional<Department> found = departmentService.getDepartmentByName(name);
         assertEquals(name, found.get().getName());
     }
+
 }
