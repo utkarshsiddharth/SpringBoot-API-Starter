@@ -2,7 +2,6 @@ package com.skdev;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.data.repository.query.Param;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -15,6 +14,7 @@ public class Main {
     private TodoRepository todoRepository;
     private BookRepository bookRepository;
 
+
     public Main(CustomerRepository customerRepository, TodoRepository todoRepository, BookRepository bookRepository) {
         this.customerRepository = customerRepository;
         this.todoRepository = todoRepository;
@@ -24,6 +24,7 @@ public class Main {
     public static void main(String[] args) {
         SpringApplication.run(Main.class, args);
     }
+
 
     @GetMapping("/health")
     public HealthCheck greet() {
@@ -59,6 +60,7 @@ public class Main {
         }else {
             throw new RuntimeException("Customer not found with id:" + id);
         }
+
     }
 
    // Todo Endpoints
