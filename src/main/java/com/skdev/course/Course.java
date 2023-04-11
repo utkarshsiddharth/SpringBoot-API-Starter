@@ -28,13 +28,11 @@ public class Course {
     private Integer credit;
 
 
-    // teacher relation
-    @ManyToOne(
-            cascade = CascadeType.ALL
-    )
+    // course to teacher relation
+    @ManyToOne
     @JoinColumn(
             name="teacher_id",
-            referencedColumnName = "teacherId"
+            referencedColumnName = "id"
     )
     private Teacher teacher;
 

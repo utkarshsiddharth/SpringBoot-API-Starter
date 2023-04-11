@@ -25,16 +25,8 @@ public class Teacher {
             generator = "teacher_id_sequence",
             strategy = GenerationType.SEQUENCE
     )
-    private Long teacherId;
+    private Long id;
     private String firstName;
     private String lastName;
 
-    //    @OneToMany(
-    //            cascade = CascadeType.ALL
-    //    )
-    //    @JoinColumn(
-    //            name = "teacher_id",
-    //            referencedColumnName = "teacherId"
-    //    )
-    //    private List<Course> courses;
 }
