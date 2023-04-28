@@ -1,6 +1,8 @@
 package com.skdev.department;
 
 import com.skdev.error.NotFoundException;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 
@@ -9,6 +11,8 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/v1/department")
+@Tag(name="Department", description = "Department API")
+@SecurityRequirement(name = "bearerAuth")
 public class DepartmentController  {
 
     private final DepartmentServiceInter departmentService;
